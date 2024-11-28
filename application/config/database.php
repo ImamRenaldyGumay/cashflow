@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'cashflow',
+	'hostname' => '153.92.15.11',
+	'username' => 'u150805813_backendsss',
+	'password' => '1234Lima!',
+	'database' => 'u150805813_cashflow',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
