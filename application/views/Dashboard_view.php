@@ -1,3 +1,11 @@
+<!-- Add this style block in the <head> section of your HTML -->
+<!-- <style>
+    .content-wrapper {
+        padding-left: 50px; /* Adjust as needed */
+        padding-right: 50px; /* Adjust as needed */
+    }
+</style> -->
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
