@@ -15,7 +15,7 @@
                 <form method="POST" action="#" class="needs-validation" novalidate="">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required>
                     <div class="invalid-feedback">
                       Please fill in your email
                     </div>
@@ -41,4 +41,7 @@
             </div>
             <div class="mt-5 text-muted text-center">
               New User? <a href="<?= base_url('Regis') ?>">FREE REGISTER</a>
+            </div>
+            <div class="mt-5 text-muted text-center">
+              dashboard <a href="<?= base_url('Dashboard') ?>">FREE REGISTER</a>
             </div>

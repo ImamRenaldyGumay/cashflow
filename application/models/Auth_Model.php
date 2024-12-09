@@ -11,7 +11,7 @@ class Auth_Model extends CI_Model {
     // Cek login di tabel admin
     public function check_admin($email, $password) {
         $this->db->where('email', $email);
-        $query = $this->db->get('admins'); // Tabel `admins`
+        $query = $this->db->get('admins');
         
         if ($query->num_rows() == 1) {
             $admin = $query->row();
@@ -37,7 +37,7 @@ class Auth_Model extends CI_Model {
                 return [
                     'id' => $user->id,
                     'email' => $user->email,
-                    'role' => $user->role // Role dari kolom `users.role`
+                    'role' => 'user'
                 ];
             }
         }

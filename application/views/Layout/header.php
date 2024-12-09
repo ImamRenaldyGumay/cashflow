@@ -1,33 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title><?= $title ?></title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/jqvmap/jqvmap.min.css">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/summernote/summernote-bs4.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?= base_url("assets/")?>dist/css/adminlte.min.css">
-  <!-- Ganti Logo -->
-  <link rel="shortcut icon" href="<?= base_url("assets/")?>dist/img/AdminLTELogo.png">
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>modules/fontawesome/css/all.min.css">
+
+  <!-- CSS Libraries -->
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>modules/datatables/datatables.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css">
+
+
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>css/style.css">
+  <link rel="stylesheet" href="<?= base_url('assets2/')?>css/components.css">
 </head>
-<body class="hold-transition sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">

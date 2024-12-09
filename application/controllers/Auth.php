@@ -9,8 +9,11 @@ class Auth extends CI_Controller{
 
     public function login(){
         // Aturan validasi form
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', [
+            'required' => 'Email wajib diisi.',
+            'valid_email' => 'Masukkan email yang valid.'
+        ]);
+        $this->form_validation->set_rules('password', 'Password', 'required', ['required' => 'Password wajib diisi.']);
 
         // Jika validasi gagal
         if ($this->form_validation->run() == FALSE) {
@@ -32,7 +35,7 @@ class Auth extends CI_Controller{
                 $this->session->set_userdata([
                     'user_id' => $admin['id'],
                     'email' => $admin['email'],
-                    'role' => $admin['role'], // Role = admin
+                    'role' => $admin['role'],
                     'logged_in' => true,
                 ]);
                 redirect('admin/dashboard'); // Redirect ke halaman admin
