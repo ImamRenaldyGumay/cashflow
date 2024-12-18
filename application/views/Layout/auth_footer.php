@@ -1,29 +1,43 @@
 
-                
-                    <div class="simple-footer">
-                        Copyright &copy; Casflow 2024
-                    </div>
-                </div>
-            </div>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+        Anything you want
         </div>
-    </section>
-</div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        </div>
+    </footer>
+    
+    <?php if ($this->session->flashdata('success')): ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '<?= $this->session->flashdata('success') ?>',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+        <?php endif; ?>
 
-    <!-- General JS Scripts -->
-    <script src="<?= base_url('assets2')?>/modules/jquery.min.js"></script>
-    <script src="<?= base_url('assets2')?>/modules/popper.js"></script>
-    <script src="<?= base_url('assets2')?>/modules/tooltip.js"></script>
-    <script src="<?= base_url('assets2')?>/modules/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?= base_url('assets2')?>/modules/nicescroll/jquery.nicescroll.min.js"></script>
-    <script src="<?= base_url('assets2')?>/modules/moment.min.js"></script>
-    <script src="<?= base_url('assets2')?>/js/stisla.js"></script>
+        <?php if ($this->session->flashdata('error')): ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: '<?= $this->session->flashdata('error') ?>',
+            });
+        </script>
+    <?php endif; ?>
 
-    <!-- JS Libraies -->
-
-    <!-- Page Specific JS File -->
-
-    <!-- Template JS File -->
-    <script src="<?= base_url('assets2')?>/js/scripts.js"></script>
-    <script src="<?= base_url('assets2')?>/js/custom.js"></script>
-</body>
+    <!-- jQuery -->
+    <script src="<?= base_url('assets/')?>plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?= base_url('assets/')?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= base_url('assets/')?>dist/js/adminlte.min.js"></script>
+    </body>
 </html>

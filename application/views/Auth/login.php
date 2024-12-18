@@ -1,47 +1,90 @@
-<body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="<?= base_url('assets/img/stisla-fill.svg')?>" alt="logo" width="100" class="shadow-light rounded-circle">
+
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container mb-4">
+            <!-- <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0">Top Navigation <small>Example 3.0</small></h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Layout</a></li>
+                  <li class="breadcrumb-item active">Top Navigation</li>
+                </ol>
+              </div>
+            </div> -->
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container">
+            <div class="login-logo">
+              <a href="#"><b>Admin</b>LTE</a>
             </div>
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
 
-            <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
+                    <form action="<?= base_url('Login')?>" method="post" class="mb-5">
+                      <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Email" id="email" name="email"/>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" id="password" name="password"/>
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-8">
+                          <div class="icheck-primary">
+                            <input type="checkbox" id="remember" />
+                            <label for="remember"> Remember Me </label>
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                          <button type="submit" class="btn btn-primary btn-block">
+                            Sign In
+                          </button>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                    </form>
 
-              <div class="card-body">
-                <form method="POST" action="#" class="needs-validation" novalidate="">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required>
-                    <div class="invalid-feedback">
-                      Please fill in your email
-                    </div>
+                    <p class="mb-1">
+                      <a href="forgot-password.html">I forgot my password</a>
+                    </p>
+                    <p class="mb-0">
+                      <a href="<?= base_url("Regis")?>" class="text-center"
+                        >Register a new membership</a
+                      >
+                    </p>
                   </div>
-
-                  <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Password</label>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      please fill in your password
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                </form>
+                  <!-- /.login-card-body -->
+                </div>
+                </div>
+                
               </div>
             </div>
-            <div class="mt-5 text-muted text-center">
-              New User? <a href="<?= base_url('Regis') ?>">FREE REGISTER</a>
-            </div>
-            <div class="mt-5 text-muted text-center">
-              dashboard <a href="<?= base_url('Dashboard') ?>">FREE REGISTER</a>
-            </div>
+          </div>
+        </div>
+      </div>
+    </div>

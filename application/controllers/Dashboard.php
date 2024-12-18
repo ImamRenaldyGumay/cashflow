@@ -1,12 +1,15 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
-   
+
 class Dashboard extends CI_Controller {
     
     public function __construct() {
         parent::__construct();
-        // $this->load->model('Transaction_model');
+        if ($this->session->userdata('logged_in') != 'true'){
+            redirect('Login');
+        }else{
+            // $this->load->model('Dashboard_model', 'DM');
+        }
     }
     
     public function index() {

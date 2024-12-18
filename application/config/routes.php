@@ -56,12 +56,24 @@ $route['translate_uri_dashes'] = FALSE;
 // Start Auth
 $route['Login'] = 'Auth/login';
 $route['Regis'] = 'Auth/regis';
-$route['BuatBukuKas'] = 'Auth/buatBukuKas';
+$route['Logout'] = 'Auth/logout';
+$route['BuatBukuKas'] = 'BuatBukuKas/index';
 // End Auth
 
 // Start Dashboard
 $route['Dashboard'] = 'Dashboard/index';
 // End Dashboard
+
+// Start User
+$route['User'] = 'User/User/index';
+$route['Pemasukkan'] = 'User/User/tambah_pemasukkan';
+$route['Pengeluaran'] = 'User/User/tambah_pengeluaran';
+// End User
+
+// Start Report
+$route['Harian'] = 'User/Laporan/index';
+$route['Bulanan'] = 'User/Laporan/Bulanan';
+// End Report
 
 $route['finance/pemasukan'] = 'finance/pemasukan';
 $route['finance/pengeluaran'] = 'finance/pengeluaran';

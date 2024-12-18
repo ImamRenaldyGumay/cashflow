@@ -18,51 +18,58 @@ class Auth extends CI_Controller{
         // Jika validasi gagal
         if ($this->form_validation->run() == FALSE) {
             $data = [
-                'title' => "Login - Cashflow"
+                'title' => "Login - Cashflow",
             ];
 
             $this->load->view('Layout/auth_header', $data);
             $this->load->view('Auth/login', $data);
             $this->load->view('Layout/auth_footer');
-        }else{
+        } else {
             $email = $this->input->post('email');
             $password = $this->input->post('password');
 
-            // Cek login sebagai admin terlebih dahulu
             $admin = $this->AM->check_admin($email, $password);
             if ($admin) {
-                // Simpan data admin ke session
                 $this->session->set_userdata([
                     'user_id' => $admin['id'],
                     'email' => $admin['email'],
-                    'role' => $admin['role'],
+                    'role' => 'admin',
+                    'name' => $admin['name'],
                     'logged_in' => true,
                 ]);
-                redirect('admin/dashboard'); // Redirect ke halaman admin
-            }
-
-            // Jika bukan admin, cek sebagai user biasa
-            $user = $this->AM->check_user($email, $password);
-            if ($user) {
-                // Simpan data user ke session
-                $this->session->set_userdata([
-                    'user_id' => $user['id'],
-                    'email' => $user['email'],
-                    'role' => $user['role'], // Role = super_user / user
-                    'logged_in' => true,
-                ]);
-
-                // Redirect berdasarkan role user
-                if ($user['role'] === 'super_user') {
-                    redirect('superuser/dashboard');
-                } else {
-                    redirect('user/dashboard');
+                $this->session->set_flashdata('success', 'Login berhasil!');
+                redirect('Dashboard');
+            }else{
+                // Jika bukan admin, cek sebagai user biasa
+                $user = $this->AM->check_user($email, $password);
+                if ($user) {
+                    $cek_buku = $this->AM->cek_buku_kas($user['id']);
+                    if (empty($cek_buku)) {
+                        $this->session->set_userdata([
+                            'user_id' => $user['id'],
+                            'email' => $user['email'],
+                            'role' => 'user',
+                            'name'=> $user['name'],
+                            'logged_in' => true,
+                        ]);
+                        $this->session->set_flashdata('success', 'Login berhasil!');
+                        redirect('BuatBukuKas/index');
+                    }else{
+                        $this->session->set_userdata([
+                            'user_id' => $user['id'],
+                            'email' => $user['email'],
+                            'role' => 'user',
+                            'name'=> $user['name'],
+                            'logged_in' => true,
+                        ]);
+                        $this->session->set_flashdata('success', 'Login berhasil!');
+                        redirect('User');
+                    }
                 }
             }
 
-            // Jika login gagal
-            $this->session->set_flashdata('error', 'Email atau password salah.');
-            redirect('auth/login');
+            $this->session->set_flashdata('error', 'Email dan Password Salah');
+            redirect('Login');
         }
         
     }
@@ -71,20 +78,20 @@ class Auth extends CI_Controller{
 
         // Tambahkan aturan validasi
         $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama wajib diisi.']);
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email', [
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[admins.email]', [
             'required' => 'Email wajib diisi.',
-            'valid_email' => 'Masukkan email yang valid.'
+            'valid_email' => 'Masukkan email yang valid.',
+            'is_unique' => 'Email sudah terdaftar. Silakan gunakan email lain.'
         ]);
         $this->form_validation->set_rules('password', 'Password', 'required', ['required' => 'Password wajib diisi.']);
         $this->form_validation->set_rules('password2', 'Confirm Password', 'required|matches[password]', [
             'required' => 'Konfirmasi password wajib diisi.',
             'matches' => 'Konfirmasi password tidak cocok dengan password.'
         ]);
-        $this->form_validation->set_rules('agree_terms', 'Syarat dan Ketentuan', 'required', [
+        $this->form_validation->set_rules('agree_terms', 'Saya setuju dengan Syarat dan Ketentuan', 'required', [
             'required' => 'Anda harus menyetujui syarat dan ketentuan.'
         ]);
 
-        // Jika validasi gagal
         if ($this->form_validation->run() == FALSE) {
             $data = [
                 'title' => "Register - CASHFLOW"
@@ -97,43 +104,40 @@ class Auth extends CI_Controller{
              // Ambil data input dari form
             $name = $this->input->post('name');
             $email = $this->input->post('email');
-            $password = password_hash($this->input->post('password'), PASSWORD_BCRYPT);
+            $password = $this->input->post('password');
 
-            // Data yang akan disimpan ke database
             $data = [
                 'name' => $name,
                 'email' => $email,
-                'password' => $password,
+                'password' => md5($password),
                 'created_at' => date('Y-m-d H:i:s'),
+                // 'subscription_status' => 'inactive',
+                // 'role' => 'user'
             ];
 
             // Simpan ke database
-            if ($this->AM->register_user($data)) {
-                $this->session->set_flashdata('success', 'Pendaftaran berhasil. Silakan login.');
-                redirect('auth/login');
+            if ($this->AM->register_admin($data)) {
+                $user_id = $this->db->insert_id();
+                // $this->session->set_userdata([
+                //     'user_id' => $user_id,
+                //     'email' => $email,
+                //     'role' => 'user',
+                //     'logged_in' => true,
+                //     'subscription_status' => 'inactive'
+                // ]);
+                $this->session->set_flashdata('success','Registrasi berhasil. Silakan login.');
+                redirect('Login');
             } else {
                 $this->session->set_flashdata('error', 'Terjadi kesalahan. Silakan coba lagi.');
-                $this->load->view('auth/register');
+                $this->load->view('Regis');
             }
         }
         
     }
 
-    public function buatBukuKas(){
-        if ($this->form_validation->run() == FALSE) {
-            $data = [
-                'title' => "Buat Buku Kas - CASHFLOW"
-            ];
-    
-            $this->load->view('Layout/auth_header', $data);
-            $this->load->view('Auth/create_books');
-            $this->load->view('Layout/auth_footer');
-        }
-    }
-
     public function logout() {
         $this->session->sess_destroy();
-        redirect('auth/login');
+        redirect('Home');
     }
 }
 ?>

@@ -6,10 +6,92 @@
   </div>
 </footer>
 
+  <?php if ($this->session->flashdata('success')): ?>
+  <script>
+      Swal.fire({
+          icon: 'success',
+          title: 'Berhasil!',
+          text: '<?= $this->session->flashdata('success') ?>',
+          showConfirmButton: false,
+          timer: 1500
+      });
+  </script>
+  <?php endif; ?>
+
+  <?php if ($this->session->flashdata('error')): ?>
+  <script>
+      Swal.fire({
+          icon: 'error',
+          title: 'Gagal!',
+          text: '<?= $this->session->flashdata('error') ?>',
+      });
+  </script>
+  <?php endif; ?>
+
 
     </div>
     <!-- ./wrapper -->
 
+      <script>
+        $(document).ready(function() {
+          var table = $('#transaksiTable').DataTable({
+            "language": {
+              "lengthMenu": "Tampilkan _MENU_ entri",
+              "zeroRecords": "Tidak ada data yang ditemukan",
+              "info": "Menampilkan halaman _PAGE_ dari _PAGES_",
+              "infoEmpty": "Tidak ada entri tersedia",
+              "infoFiltered": "(disaring dari _MAX_ total entri)",
+              "search": "Cari:",
+              "paginate": {
+                "first": "Pertama",
+                "last": "Terakhir",
+                "next": "Selanjutnya",
+                "previous": "Sebelumnya"
+              }
+            },
+            // "columnDefs": [
+            //   {
+            //     "targets": 0, // Indeks kolom pertama
+            //     "orderable": false // Nonaktifkan pengurutan
+            //   }
+            // ]
+            "lengthMenu": [5, 10, 25, 50, 100],
+            // "ordering": false,
+          });
+
+          // Ekspor ke Excel
+          $('#exportExcel').on('click', function() {
+              table.button('.buttons-excel').trigger();
+          });
+
+          // Ekspor ke CSV
+          $('#exportCSV').on('click', function() {
+              table.button('.buttons-csv').trigger();
+          });
+
+          // Ekspor ke PDF
+          $('#exportPDF').on('click', function() {
+              table.button('.buttons-pdf').trigger();
+          });
+        });
+      </script>
+    <!-- <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+        });
+      });
+    </script> -->
     <!-- jQuery -->
     <script src="<?= base_url('assets/')?>plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->
@@ -40,5 +122,18 @@
     <script src="<?= base_url('assets/')?>plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= base_url('assets/')?>dist/js/adminlte.js"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="<?= base_url('assets/')?>plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/jszip/jszip.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="<?= base_url('assets/')?>plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 </body>
 </html>
