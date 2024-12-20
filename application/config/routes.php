@@ -73,12 +73,15 @@ $route['Pengeluaran'] = 'User/User/tambah_pengeluaran';
 // Start Report
 $route['Harian'] = 'User/Laporan/index';
 $route['Bulanan'] = 'User/Laporan/Bulanan';
+$route['Tahunan'] = 'User/Laporan/Tahunan';
 // End Report
 
-$route['finance/pemasukan'] = 'finance/pemasukan';
-$route['finance/pengeluaran'] = 'finance/pengeluaran';
-$route['finance/laporan'] = 'finance/laporan';
-
-$route['Kategori'] = 'Category/index';
+// Start Setting
+$route['SettingKategori'] = 'User/Setting/Kategori';
+$route['SettingBukuKas'] = 'User/Setting/BukuKas';
+$route['SettingAkun'] = 'User/Setting/Akun';
+$route['SettingMultiUser'] = 'User/Setting/MultiUser';
+$route['SettingRiwayatPembelian'] = 'User/Setting/RiwayatPembelian';
+// End Setting
 
 $route['contoh'] = 'contoh/index';

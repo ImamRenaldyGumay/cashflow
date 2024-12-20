@@ -21,6 +21,10 @@ class User extends CI_Controller {
         }
         $data['title'] = "Dashboard - CASHFLOW";
         $data['transaksi'] = $this->UM->get_transaksi($user_id, $book_id);
+        if (empty($data['transaksi'])) {
+            // Tangani kasus ketika tidak ada data
+            $data['transaksi'] = []; // Atau bisa juga menampilkan pesan
+        }
         $data['pemasukkan'] = $this->UM->get_pemasukkan();
         $data['pengeluaran'] = $this->UM->get_pengeluaran();
         $data['book_id'] = $book_id;
@@ -38,7 +42,7 @@ class User extends CI_Controller {
             'user_id' => $this->input->post('user_id'),
             'book_id' => $this->input->post('book_id'),
             'tanggal' => $this->input->post('tanggal'),
-            'kategori' => $this->input->post('kategori'),
+            'kategori_id' => $this->input->post('kategori'),
             'deskripsi' => $this->input->post('deskripsi'),
             'nominal' => $this->input->post('nominal'),
             'type' => 'pemasukan',
@@ -60,7 +64,7 @@ class User extends CI_Controller {
             'user_id' => $this->input->post('user_id'),
             'book_id' => $this->input->post('book_id'),
             'tanggal' => $this->input->post('tanggal'),
-            'kategori' => $this->input->post('kategori'),
+            'kategori_id' => $this->input->post('kategori'),
             'deskripsi' => $this->input->post('deskripsi'),
             'nominal' => $this->input->post('nominal'),
             'type' => 'pengeluaran',

@@ -1,5 +1,5 @@
 <style>
-    .content-wrapper {
+    .body {
             background-color: #f8f9fa;
             padding: 20px;
         }
@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Laporan Bulanan</h1>
+                    <h1 class="m-0">Laporan Harian</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -48,12 +48,15 @@
             <div class="header">
                 <div>
                     <div class="title">Dompet Saya</div>
-                    <div class="description">Uang dompet</div>
+                    <!-- <div class="description"><?= formatTanggal($tanggal_sekarang, 'long')?></div> -->
                 </div>
                 <div class="icon-buttons">
                     <button id="exportExcel" class="btn btn-success">Ekspor ke Excel</button>
                     <button id="exportCSV" class="btn btn-info">Ekspor ke CSV</button>
                     <button id="exportPDF" class="btn btn-danger">Ekspor ke PDF</button>
+                </div>
+                <div>
+                    
                 </div>
             </div>
             <div class="saldo mt-3">

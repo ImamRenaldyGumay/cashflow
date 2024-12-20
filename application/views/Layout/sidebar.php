@@ -29,7 +29,7 @@ $segment2 = $this->uri->segment(2);
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">BUKU KAS</li>
                 <li class="nav-item">
-                <a href="<?= site_url('Admin')?>" class="nav-link <?= ($segment1 == 'User' && $segment2 == "") ? 'active': ""; ?>">
+                <a href="<?= site_url('User')?>" class="nav-link <?= ($segment1 == 'User' && $segment2 == "") ? 'active': ""; ?>">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -41,46 +41,39 @@ $segment2 = $this->uri->segment(2);
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Report')?>" class="nav-link">
+                    <a href="<?= base_url('Bulanan')?>" class="nav-link <?= ($segment1 == 'Bulanan' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Bulanan</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('Report')?>" class="nav-link">
+                    <a href="<?= base_url('Tahunan')?>" class="nav-link <?= ($segment1 == 'Tahunan' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Tahunan</p>
                     </a>
                 </li>
                 <li class="nav-header">PENGATURAN</li>
                 <li class="nav-item">
-                    <a href="<?= base_url('#')?>" class="nav-link">
+                    <a href="<?= base_url('SettingKategori')?>" class="nav-link <?= ($segment1 == 'SettingKategori' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Kategori</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('#')?>" class="nav-link">
+                    <a href="<?= base_url('SettingBukuKas')?>" class="nav-link <?= ($segment1 == 'SettingBukuKas' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Buku Saya</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('#')?>" class="nav-link">
+                    <a href="<?= base_url('SettingAkun')?>" class="nav-link <?= ($segment1 == 'SettingAkun' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Akun Saya</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('#')?>" class="nav-link">
+                    <a href="<?= base_url('SettingMultiUser')?>" class="nav-link <?= ($segment1 == 'SettingMultiUser' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Multi User</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= base_url('#')?>" class="nav-link">
+                    <a href="<?= base_url('#')?>" class="nav-link <?= ($segment1 == 'SettingRiwayatPembelian' && $segment2 == "") ? 'active': ""; ?>">
                         <p>Riwayat Pembayaran</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= base_url('Logout')?>" class="nav-link">
-                        <p>Logout
-                            <span class="right badge badge-danger">New</span>
-                        </p>
                     </a>
                 </li>
             </ul>

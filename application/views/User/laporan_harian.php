@@ -1,90 +1,78 @@
-<div class="container mt-4">
-    <h1><?= $title ?></h1>
+<style>
+    .body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+    .header {
+        /* background-color: #ffffff; */
+        padding: 20px;
+        /* border-bottom: 1px solid #dee2e6; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #007bff;
+    }
+    .header .description {
+        font-size: 16px;
+        color: #6c757d;
+    }
+</style>
 
-    <form method="get" action="<?= base_url('Report') ?>">
-        <div class="form-group">
-            <label for="filter">Filter</label>
-            <select class="form-control" id="filter" name="filter" required>
-                <option value="">-- Pilih Filter --</option>
-                <option value="harian" <?= isset($filter) && $filter == 'harian' ? 'selected' : '' ?>>Harian</option>
-                <option value="bulanan" <?= isset($filter) && $filter == 'bulanan' ? 'selected' : '' ?>>Bulanan</option>
-                <option value="tahunan" <?= isset($filter) && $filter == 'tahunan' ? 'selected' : '' ?>>Tahunan</option>
-            </select>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Laporan Harian</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="tanggal">Tanggal (untuk harian)</label>
-            <input type="date" class="form-control" id="tanggal" name="tanggal" value="<?= isset($tanggal) ? $tanggal : '' ?>">
-        </div>
-        <div class="form-group">
-            <label for="bulan">Bulan (untuk bulanan)</label>
-            <input type="month" class="form-control" id="bulan" name="bulan" value="<?= isset($bulan) ? $bulan : '' ?>">
-        </div>
-        <div class="form-group">
-            <label for="tahun">Tahun (untuk tahunan)</label>
-            <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Contoh: 2024" value="<?= isset($tahun) ? $tahun : '' ?>">
-        </div>
-        <button type="submit" class="btn btn-primary">Tampilkan</button>
-    </form>
+    </div>
+    <!-- /.content-header -->
 
-    <h2>Hasil Laporan</h2>
-    <?php if (!empty($transaksi)): ?>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Tanggal</th>
-                    <th>Keterangan</th>
-                    <th>Jenis</th>
-                    <th>Jumlah</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($transaksi as $i => $item): ?>
-                    <tr>
-                        <td><?= $i + 1 ?></td>
-                        <td><?= $item['tanggal'] ?></td>
-                        <td><?= $item['keterangan'] ?></td>
-                        <td><?= ucfirst($item['jenis']) ?></td>
-                        <td><?= number_format($item['jumlah'], 2) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Tidak ada data untuk ditampilkan.</p>
-    <?php endif; ?>
+    <!-- Main content -->
+    <div class="content">
+        <div class="container mt-5">
+            <div class="header">
+                <div>
+                    <div class="title">Dompet Saya</div>
+                    <div class="description"><?= formatTanggal($tanggal_sekarang, 'long')?></div>
+                </div>
+                <div class="icon-buttons">
+                    <button id="exportExcel" class="btn btn-success">Ekspor ke Excel</button>
+                    <button id="exportCSV" class="btn btn-info">Ekspor ke CSV</button>
+                    <button id="exportPDF" class="btn btn-danger">Ekspor ke PDF</button>
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+            <div class="saldo mt-3">
+                Rp 8.402.221,00
+            </div>
+            <div class="saldo-info">
+                Semua Buku Kas: Rp 8.402.221,00
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-success btn-custom" data-toggle="modal" data-target="#modalPemasukan">Catat Pemasukan</button>
+                <button class="btn btn-danger btn-custom" data-toggle="modal" data-target="#modalPengeluaran">Catat Pengeluaran</button>
+                <button class="btn btn-info btn-custom" data-toggle="modal" data-target="#transaksiModal">Transfer</button>
+            </div>
+        </div>
+    </div>
+    <!-- /.content -->
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filter = document.getElementById('filter');
-        const tanggalInput = document.getElementById('tanggal');
-        const bulanInput = document.getElementById('bulan');
-        const tahunInput = document.getElementById('tahun');
-
-        filter.addEventListener('change', function() {
-            const today = new Date();
-
-            if (this.value === 'harian') {
-                const todayDate = today.toISOString().split('T')[0];
-                tanggalInput.value = todayDate;
-                bulanInput.value = '';
-                tahunInput.value = '';
-            } else if (this.value === 'bulanan') {
-                const currentMonth = today.toISOString().slice(0, 7);
-                tanggalInput.value = '';
-                bulanInput.value = currentMonth;
-                tahunInput.value = '';
-            } else if (this.value === 'tahunan') {
-                const currentYear = today.getFullYear();
-                tanggalInput.value = '';
-                bulanInput.value = '';
-                tahunInput.value = currentYear;
-            } else {
-                tanggalInput.value = '';
-                bulanInput.value = '';
-                tahunInput.value = '';
-            }
-        });
-    });
-</script>
+<!-- /.content-wrapper -->

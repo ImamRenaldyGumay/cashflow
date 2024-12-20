@@ -139,7 +139,7 @@
                     <!-- <tr> -->
                         <td><?= $no++ ?></td>
                         <td><?= $transaksi['type']; ?></td>
-                        <td><?= date('d M Y, H:i', strtotime($transaksi['tanggal'])); ?></td>
+                        <td><?= formatTanggal($transaksi['tanggal'], 'short'); ?></td>
                         <td><?= $transaksi['kategori']; ?></td>
                         <td>
                             <div class="deskripsi">
@@ -149,7 +149,7 @@
                         </td>
                         <td>Rp <?= number_format($transaksi['nominal'], 2, ',', '.'); ?></td>
                         <td>ss</td>
-                        <td><button class="btn btn-warning btn-sm">Edit</button></td>
+                        <td><button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#Edit<?= $transaksi['id']?>">Edit</button></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -187,7 +187,7 @@
                         <select class="form-control" id="kategori" name="kategori" required>
                             <option selected>Choose...</option>
                             <?php foreach ($pengeluaran as $category): ?>
-                                <option value="<?= $category['category_name'] ?>"><?= $category['category_name'] ?></option>
+                                <option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -232,7 +232,7 @@
                         <select class="form-control" id="kategori" name="kategori" required>
                             <option selected>Choose...</option>
                             <?php foreach ($pemasukkan as $category): ?>
-                                <option value="<?= $category['category_name'] ?>"><?= $category['category_name'] ?></option>
+                                <option value="<?= $category['id'] ?>"><?= $category['category_name'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -250,6 +250,54 @@
         </div>
     </div>
 </div>
+<!-- Modal Edit -->
+<!-- <?php foreach ($transaksi as $transaksi): ?>
+    <div class="modal fade" id="Edit<?= $transaksi->id?>" tabindex="-1" role="dialog" aria-labelledby="modalEdit" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPengeluaranLabel">Tambah Pengeluaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="tambah_pengeluaran" action="<?= base_url('Pengeluaran')?>" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" id="user_id" name="user_id" value="<?= $this->session->userdata('user_id')?>">
+                        <input type="hidden" id="book_id" name="book_id" value="<?= $book_id?>">
+                        <div class="form-group">
+                            <label for="tanggalPemasukan">Tanggal</label>
+                            <input type="datetime-local" class="form-control" id="tanggal" name="tanggal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nominalPemasukan">Nominal</label>
+                            <input type="number" class="form-control" id="nominal" name="nominal" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategoriPemasukan">Kategori</label>
+                            <select class="form-control" id="kategori" name="kategori" required>
+                                <option selected>Choose...</option>
+                                <?php foreach ($pengeluaran as $category): ?>
+                                    <option value="<?= $category['category_name'] ?>"><?= $category['category_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="deskripsiPemasukan">Deskripsi</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
+                        </div>
+                        <input type="hidden" id="penulis" name="penulis" value="<?= $this->session->userdata('name'); ?>">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-danger">Simpan Pemasukan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?> -->
+
 <!-- <script>
     // Event listener untuk form Pemasukan
     $('#formPemasukan').on('submit', function(e) {

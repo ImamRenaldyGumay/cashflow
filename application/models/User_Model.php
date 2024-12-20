@@ -13,10 +13,14 @@ class User_Model extends CI_Model {
     }
 
     public function get_transaksi($user_id, $book_id){
-        $this->db->where('user_id', $user_id);
-        $this->db->where('book_id', $book_id);
-        $this->db->order_by('tanggal', 'desc');
-        $query = $this->db->get('transaksi');
+        $this->db->select('transaksi.*, categories.category_name as kategori');
+        $this->db->from('transaksi');
+        $this->db->join('categories', 'transaksi.kategori_id = categories.id', 'left');
+        $this->db->where('transaksi.user_id', $user_id);
+        $this->db->where('transaksi.book_id', $book_id);
+        $this->db->order_by('transaksi.tanggal', 'desc');
+
+        $query = $this->db->get();
 
         if ($query->num_rows() > 0) {
             return $query->result_array();

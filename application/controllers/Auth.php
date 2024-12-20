@@ -52,7 +52,7 @@ class Auth extends CI_Controller{
                             'name'=> $user['name'],
                             'logged_in' => true,
                         ]);
-                        $this->session->set_flashdata('success', 'Login berhasil!');
+                        // $this->session->set_flashdata('success', 'Login berhasil!');
                         redirect('BuatBukuKas/index');
                     }else{
                         $this->session->set_userdata([

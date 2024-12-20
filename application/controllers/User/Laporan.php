@@ -23,17 +23,38 @@ class Laporan extends CI_Controller {
             $data['transaksi'] = $this->UM->getTahunan($tahun);
         }
 
+        $now = new DateTime();
+        $data['tanggal_sekarang'] = $now->format('d-m-Y');
+
         // Kirimkan data input untuk tetap diisi
         $data['filter'] = $filter;
         $data['tanggal'] = $tanggal;
         $data['bulan'] = $bulan;
         $data['tahun'] = $tahun;
 
-        $data['title'] = "Laporan Transaksi";
+        $data['title'] = "Laporan Harian - CASHFLOW";
         $this->load->view('Layout/header', $data);
         $this->load->view('Layout/navbar');
-        // $this->load->view('Layout/sidebar');
+        $this->load->view('Layout/sidebar');
         $this->load->view('User/laporan_harian', $data);
+        $this->load->view('Layout/footer');
+    }
+
+    public function Bulanan(){
+        $data['title'] = "Laporan Bulanan - CASHFLOW";
+        $this->load->view('Layout/header', $data);
+        $this->load->view('Layout/navbar');
+        $this->load->view('Layout/sidebar');
+        $this->load->view('User/laporan_bulanan', $data);
+        $this->load->view('Layout/footer');
+    }
+
+    public function Tahunan(){
+        $data['title'] = "Laporan Tahunan - CASHFLOW";
+        $this->load->view('Layout/header', $data);
+        $this->load->view('Layout/navbar');
+        $this->load->view('Layout/sidebar');
+        $this->load->view('User/laporan_tahunan', $data);
         $this->load->view('Layout/footer');
     }
 }
