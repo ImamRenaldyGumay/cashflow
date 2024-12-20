@@ -78,7 +78,7 @@ class Auth extends CI_Controller{
 
         // Tambahkan aturan validasi
         $this->form_validation->set_rules('name', 'Nama', 'required', ['required' => 'Nama wajib diisi.']);
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[admins.email]', [
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[users.email]', [
             'required' => 'Email wajib diisi.',
             'valid_email' => 'Masukkan email yang valid.',
             'is_unique' => 'Email sudah terdaftar. Silakan gunakan email lain.'
@@ -116,17 +116,24 @@ class Auth extends CI_Controller{
             ];
 
             // Simpan ke database
-            if ($this->AM->register_admin($data)) {
+            if ($this->AM->register_user($data)) {
                 $user_id = $this->db->insert_id();
-                // $this->session->set_userdata([
-                //     'user_id' => $user_id,
-                //     'email' => $email,
-                //     'role' => 'user',
-                //     'logged_in' => true,
-                //     'subscription_status' => 'inactive'
-                // ]);
-                $this->session->set_flashdata('success','Registrasi berhasil. Silakan login.');
-                redirect('Login');
+                
+                // cek buku kas
+                $cek_buku = $this->AM->cek_buku_kas($user_id);
+                if (empty($cek_buku)) {
+                    $this->session->set_userdata([
+                        'user_id' => $user_id,
+                        'email' => $email,
+                        'role' => 'user',
+                        'name' => $name,
+                        'logged_in' => true,
+                    ]);
+                    // $this->session->set_flashdata('success', 'Login berhasil!');
+                    redirect('BuatBukuKas/index');
+                }
+                // $this->session->set_flashdata('success','Registrasi berhasil. Silakan login.');
+                // redirect('Login');
             } else {
                 $this->session->set_flashdata('error', 'Terjadi kesalahan. Silakan coba lagi.');
                 $this->load->view('Regis');

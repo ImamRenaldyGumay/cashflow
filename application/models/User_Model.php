@@ -6,6 +6,16 @@ class User_Model extends CI_Model {
         $this->load->database();
     }
 
+    public function get_user_by_id($user_id) {
+        return $this->db->get_where('users', ['id' => $user_id])->row_array();
+    }
+
+    public function update_user_saldo($user_id, $saldo_baru) {
+        $this->db->set('saldo_akhir', $saldo_baru);
+        $this->db->where('id', $user_id);
+        return $this->db->update('users');
+    }
+
     public function cek_buku($id){
         $this->db->where('user_id', $id);
         $query = $this->db->get('books');

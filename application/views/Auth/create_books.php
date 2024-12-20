@@ -106,13 +106,9 @@
                       <input type="text" class="form-control" id="mataUang" name="mata_uang" maxlength="3" oninput="this.value = this.value.toUpperCase()" required value="Rp">
                     </div>
                     <div class="form-group">
-                      <label for="saldoAwal">Saldo Awal</label>
+                      <label for="saldoAwal">Saldo Awal*</label>
                       <small class="form-text text-muted">Berapa uang yang sudah ada di Buku Kas ini?</small>
-                      <input type="text" class="form-control" id="saldoAwal" name="saldo_awal" 
-                      onfocus="clearFormatting(this)" 
-                      onblur="formatCurrency(this)" 
-                      onkeypress="validateInput(event)" 
-                      placeholder="0,00" value="">
+                      <input type="text" class="form-control" id="saldoAwal" name="saldo_awal" onkeypress="validateInput(event)" required>
                     </div>
                     <div class="form-group">
                       <label for="kategoriPemasukan">Buat 2 Kategori Pemasukan*</label>
@@ -125,7 +121,7 @@
                       <label for="kategoriPengeluaran">Buat 2 Kategori Pengeluaran*</label>
                       <small class="form-text text-muted">Contoh: Ongkos Makan atau Perawatan Mobil.</small>
                       <input type="text" class="form-control mb-2" id="kategoriPengeluaran1" name="kategori_pengeluaran1" required>
-                      <input type="text" class="form-control" id="kategoriPengeluaran2" name="kategori_pengeluaran2" required>
+                      <input type="text" class="form-control" id="kategoriPengeluaran2" name="kategori_pengeluaran2">
                       <small class="form-text text-muted">Anda nanti bisa menambah dan mengedit kategori lagi.</small>
                     </div>
                     <button type="submit" class="btn btn-primary">Buat Buku Kas</button>
@@ -147,7 +143,7 @@
         <div class="float-right d-none d-sm-inline">
           Anything you want
         </div>
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2024 <a href="https://imamrenaldygumay.com">CASHFLOW</a>.</strong> All rights reserved.
       </div>
     </footer>
 
@@ -173,27 +169,27 @@
     <script src="<?= base_url('assets/')?>dist/js/adminlte.min.js"></script>
 
     <script>
-      function formatCurrency(input) {
-        // Menghapus semua karakter yang bukan angka
-        let value = input.value.replace(/[^0-9]/g, '');
-        // Mengubah menjadi format mata uang
-        if (value) {
-            value = parseInt(value, 10);
-            input.value = new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }).format(value);
-        } else {
-            input.value = '';
-        }
-      }
+      // function formatCurrency(input) {
+      //   // Menghapus semua karakter yang bukan angka
+      //   let value = input.value.replace(/[^0-9]/g, '');
+      //   // Mengubah menjadi format mata uang
+      //   if (value) {
+      //       value = parseInt(value, 10);
+      //       input.value = new Intl.NumberFormat('id-ID', {
+      //           style: 'currency',
+      //           currency: 'IDR',
+      //           minimumFractionDigits: 2,
+      //           maximumFractionDigits: 2
+      //       }).format(value);
+      //   } else {
+      //       input.value = '';
+      //   }
+      // }
 
-      function clearFormatting(input) {
-        // Menghapus format mata uang saat fokus
-        input.value = input.value.replace(/[^0-9]/g, '');
-      }
+      // function clearFormatting(input) {
+      //   // Menghapus format mata uang saat fokus
+      //   input.value = input.value.replace(/[^0-9]/g, '');
+      // }
 
       function validateInput(event) {
         // Mengizinkan hanya angka

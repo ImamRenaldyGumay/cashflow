@@ -36,6 +36,7 @@ class BuatBukuKas extends CI_Controller{
                 'deskripsi' => $deskripsi,
                 'mata_uang' => $mata_uang,
                 'saldo_awal' => $saldo_awal,
+                'saldo_akhir' => $saldo_awal,
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $tambahBuku = $this->AM->tambah_buku_kas($bukuKasData);
@@ -44,18 +45,36 @@ class BuatBukuKas extends CI_Controller{
                 $this->session->set_flashdata('success', 'Buku kas berhasil dibuat!');
 
                 // Simpan kategori pemasukan
-                $kategoriPemasukan1 = $this->input->post('kategori_pemasukan1');
-                $kategoriPemasukan2 = $this->input->post('kategori_pemasukan2');
-                $type = 'pemasukan';
-                $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPemasukan1, $type);
-                $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPemasukan2, $type);
+                $kategoriPemasukan = [
+                    $this->input->post('kategori_pemasukan1', TRUE),
+                    $this->input->post('kategori_pemasukan2', TRUE)
+                ];
+                foreach ($kategoriPemasukan as $kategori) {
+                    if (!empty($kategori)) {
+                        $this->AM->tambah_kategori($user_id, $buku_id, $kategori, 'pemasukan');
+                    }
+                }
+                // $kategoriPemasukan1 = $this->input->post('kategori_pemasukan1');
+                // $kategoriPemasukan2 = $this->input->post('kategori_pemasukan2');
+                // $type = 'pemasukan';
+                // $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPemasukan1, $type);
+                // $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPemasukan2, $type);
 
                 // Simpan kategori pengeluaran
-                $kategoriPengeluaran1 = $this->input->post('kategori_pengeluaran1');
-                $kategoriPengeluaran2 = $this->input->post('kategori_pengeluaran2');
-                $type= 'pengeluaran';
-                $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPengeluaran1, $type);
-                $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPengeluaran2, $type);
+                $kategoriPengeluaran = [
+                    $this->input->post('kategori_pengeluaran1', TRUE),
+                    $this->input->post('kategori_pengeluaran2', TRUE)
+                ];
+                foreach ($kategoriPengeluaran as $kategori) {
+                    if (!empty($kategori)) {
+                        $this->AM->tambah_kategori($user_id, $buku_id, $kategori, 'pengeluaran');
+                    }
+                }
+                // $kategoriPengeluaran1 = $this->input->post('kategori_pengeluaran1');
+                // $kategoriPengeluaran2 = $this->input->post('kategori_pengeluaran2');
+                // $type= 'pengeluaran';
+                // $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPengeluaran1, $type);
+                // $this->AM->tambah_kategori($user_id, $buku_id, $kategoriPengeluaran2, $type);
 
                 redirect('User');
             } else {
