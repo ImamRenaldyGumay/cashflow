@@ -11,7 +11,7 @@ class Home extends CI_Controller {
             'title'=> 'Home - Cashflow',
         ];
 
-        $this->load->view('Home', $data);
+        $this->load->view('home', $data);
     }
 }
 
