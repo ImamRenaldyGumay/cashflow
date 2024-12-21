@@ -65,7 +65,9 @@ class User_Model extends CI_Model {
     // =================================================================
 
     // Laporan harian
-    public function getHarian($tanggal) {
+    public function get_transaksi_by_date($user_id, $book_id, $tanggal) {
+        $this->db->where('user_id', $user_id);
+        $this->db->where('book_id', $book_id);
         $this->db->where('DATE(tanggal)', $tanggal);
         return $this->db->get('transaksi')->result_array();
     }

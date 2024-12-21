@@ -67,7 +67,7 @@ $route['Dashboard'] = 'Dashboard/index';
 // Start User
 $route['User'] = 'User/User/index';
 $route['Pemasukkan'] = 'User/User/tambah_transaksi';
-$route['Pengeluaran'] = 'User/User/tambah_pengeluaran';
+$route['Pengeluaran'] = 'User/User/tambah_transaksi';
 // End User
 
 // Start Report

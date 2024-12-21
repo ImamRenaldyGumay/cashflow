@@ -2,14 +2,14 @@
     body {
         background-color: #f8f9fa;
     }
-    .header {
+    /* .header {
         background-color: #ffffff;
         padding: 20px;
         border-bottom: 1px solid #dee2e6;
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
+    } */
     .header .title {
         font-size: 24px;
         font-weight: bold;
@@ -37,12 +37,6 @@
     }
     .btn-custom {
         margin: 5px;
-    }
-    .description {
-        background-color: #f8d7da; /* Warna latar belakang */
-        padding: 10px; /* Padding untuk ruang di dalam */
-        border-radius: 5px; /* Sudut melengkung */
-        border: 1px solid #f5c6cb; /* Border */
     }
     .table-success {
         background-color: #d4edda; /* Warna hijau muda */
@@ -88,10 +82,13 @@
     <?php foreach($books as $book): ?>
         <div class="content">
             <div class="container mt-5">
-                <div class="header">
-                    <div>
-                        <div class="title"><?= $book['nama_buku_kas']?></div>
-                        <div class="description"><?= $book['deskripsi']?></div>
+                <div class="header d-flex justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <img width="100" height="100" src="https://img.icons8.com/bubbles/100/wallet.png" alt="wallet"/>
+                        <div>
+                            <div class="title"><?= $book['nama_buku_kas']?></div>
+                            <div class="description"><?= $book['deskripsi']?></div>
+                        </div>
                     </div>
                     <div class="icon-buttons">
                         <button id="exportExcel" class="btn btn-success">Ekspor ke Excel</button>
@@ -220,7 +217,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="tambah_pemasukkan" action="<?= base_url('Pemasukkan')?>" method="post">
+            <form id="tambah_pemasukkan" action="<?= base_url('Pengeluaran')?>" method="post">
                 <div class="modal-body">
                     <input type="hidden" id="user_id" name="user_id" value="<?= $this->session->userdata('user_id')?>">
                     <input type="hidden" id="book_id" name="book_id" value="<?= $book_id?>">

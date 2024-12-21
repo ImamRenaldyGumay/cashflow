@@ -2,7 +2,11 @@
 class Setting extends CI_Controller {
     public function __construct(){
         parent::__construct();
-        $this->load->model("User_Model", "UM");
+        if (!$this->session->userdata("logged_in")) {
+            redirect('Login');
+        }else{
+            $this->load->model("User_Model", "UM");
+        }
     }
 
     public function Kategori(){

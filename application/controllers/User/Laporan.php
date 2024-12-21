@@ -2,36 +2,41 @@
 class Laporan extends CI_Controller {
     public function __construct(){
         parent::__construct();
-        $this->load->model("User_Model", "UM");
+        if (!$this->session->userdata("logged_in")) {
+            redirect('Login');
+        }else{
+            $this->load->model("User_Model", "UM");
+        }
+        
     }
 
     public function index() {
-        $filter = $this->input->get('filter'); // Dapatkan filter dari input
-        $tanggal = $this->input->get('tanggal'); // Format: YYYY-MM-DD
-        $bulan = $this->input->get('bulan'); // Format: YYYY-MM
-        $tahun = $this->input->get('tahun'); // Format: YYYY
+        $user_id = $this->session->userdata("user_id");
+        $books = $this->UM->cek_buku($user_id);
+        $data['books'] = $books;
 
-        $data = [];
-        if ($filter == 'harian') {
-            $tanggal = $tanggal ?: date('Y-m-d'); // Default hari ini
-            $data['transaksi'] = $this->UM->getHarian($tanggal);
-        } elseif ($filter == 'bulanan') {
-            $bulan = $bulan ?: date('Y-m'); // Default bulan ini
-            $data['transaksi'] = $this->UM->getBulanan($bulan);
-        } elseif ($filter == 'tahunan') {
-            $tahun = $tahun ?: date('Y'); // Default tahun ini
-            $data['transaksi'] = $this->UM->getTahunan($tahun);
+        if (!empty($books) && count($books) === 1) {
+            $book_id = $books[0]['id']; // Ambil ID buku pertama jika hanya ada satu
+        } else {
+            $data['message'] = "Anda belum memiliki buku kas. Silakan buat buku kas terlebih dahulu.";
+            redirect('Login', 'refresh');
         }
 
+
+        $tanggal = $this->input->post('tanggal');
+        if ($tanggal) {
+            $data['transaksi'] = $this->UM->get_transaksi($user_id, $book_id);
+            if (empty($data['transaksi'])) {
+                        // Tangani kasus ketika tidak ada data
+                        $data['transaksi'] = []; // Atau bisa juga menampilkan pesan
+                    }
+        }
+
+        
         $now = new DateTime();
         $data['tanggal_sekarang'] = $now->format('d-m-Y');
 
-        // Kirimkan data input untuk tetap diisi
-        $data['filter'] = $filter;
-        $data['tanggal'] = $tanggal;
-        $data['bulan'] = $bulan;
-        $data['tahun'] = $tahun;
-
+        $data['user_id'] = $user_id;
         $data['title'] = "Laporan Harian - CASHFLOW";
         $this->load->view('Layout/header', $data);
         $this->load->view('Layout/navbar');
